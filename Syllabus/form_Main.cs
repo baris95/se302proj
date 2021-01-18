@@ -104,7 +104,39 @@ namespace Syllabus
             fm.ShowDialog();
         }
 
-       
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dataGridView1 != null && dataGridView1.Rows.Count > 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (this.isEnglish)
+                    {
+                        ContextMenu mnu = new ContextMenu();
+                        MenuItem updateLesson = new MenuItem("Update Lesson");
+                        MenuItem deleteLesson = new MenuItem("Delete Lesson");
+                        updateLesson.Click += new EventHandler(updateLesson_Click);
+                        deleteLesson.Click += new EventHandler(deleteLesson_Click);
+                        mnu.MenuItems.AddRange(new MenuItem[] { updateLesson, deleteLesson });
+                        dataGridView1.ContextMenu = mnu;
+                        int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+                        mnu.Show(dataGridView1, new Point(e.X, e.Y));
+                    }
+                    else
+                    {
+                        ContextMenu mnu = new ContextMenu();
+                        MenuItem updateLesson = new MenuItem("Dersi Güncelle");
+                        MenuItem deleteLesson = new MenuItem("Dersi Sil");
+                        updateLesson.Click += new EventHandler(updateLesson_Click);
+                        deleteLesson.Click += new EventHandler(deleteLesson_Click);
+                        mnu.MenuItems.AddRange(new MenuItem[] { updateLesson, deleteLesson });
+                        dataGridView1.ContextMenu = mnu;
+                        int currentMouseOverRow = dataGridView1.HitTest(e.X, e.Y).RowIndex;
+                        mnu.Show(dataGridView1, new Point(e.X, e.Y));
+                    }
+                }
+            }
+        }
 
         private void deleteLesson_Click(object sender, EventArgs e)
         {
